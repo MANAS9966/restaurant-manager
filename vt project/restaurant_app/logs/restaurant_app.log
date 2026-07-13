@@ -322,3 +322,19 @@
 [2026-07-12 10:38:14] INFO     restaurant_app — User registered: arghodeepc@gmail.com (role=customer)
 [2026-07-12 10:38:21] INFO     restaurant_app — User logged in: arghodeepc@gmail.com
 [2026-07-12 10:39:24] INFO     restaurant_app — Order ORD-2FFB16015E created by customer 8
+[2026-07-13 10:01:26] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:01:26] INFO     restaurant_app.app — Application initialised: Restaurant Management System
+[2026-07-13 10:01:35] INFO     restaurant_app — User logged in: admin@gmail.com
+[2026-07-13 10:03:10] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password.
+[2026-07-13 10:03:19] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password.
+[2026-07-13 10:03:26] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password.
+[2026-07-13 10:04:58] INFO     restaurant_app — User registered: manasr@gmail.com (role=customer)
+[2026-07-13 10:05:18] INFO     restaurant_app — User logged in: manasr@gmail.com
+[2026-07-13 10:06:31] INFO     restaurant_app — Order ORD-935E2ACDB7 created by customer 9
+[2026-07-13 10:12:47] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:12:47] INFO     restaurant_app.app — Application initialised: Restaurant Management System
+[2026-07-13 10:13:15] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-07-13 10:13:31] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:13:31] INFO     restaurant_app.app — Application initialised: Restaurant Management System
+[2026-07-13 10:13:44] INFO     restaurant_app — User logged in: manasr@gmail.com
+[2026-07-13 10:13:52] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
