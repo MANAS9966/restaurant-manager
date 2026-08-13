@@ -1,7 +1,4 @@
-"""
-database/dao/audit_dao.py
-Append-only audit log DAO.
-"""
+
 from __future__ import annotations
 from database.dao.base_dao import BaseDAO
 import json

@@ -1,7 +1,4 @@
-"""
-business_logic/owner_manager.py
-Business logic for restaurant owner registration, verification, and analytics.
-"""
+
 from __future__ import annotations
 import re
 

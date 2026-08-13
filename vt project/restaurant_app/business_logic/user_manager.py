@@ -1,7 +1,4 @@
-"""
-business_logic/user_manager.py
-All user-related business operations.
-"""
+
 from __future__ import annotations
 import re
 from datetime import datetime, timedelta, timezone

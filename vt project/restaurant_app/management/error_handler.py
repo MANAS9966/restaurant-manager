@@ -1,7 +1,4 @@
-"""
-management/error_handler.py
-Maps application exceptions to safe, user-friendly messages and logs context.
-"""
+
 from __future__ import annotations
 import logging
 import traceback

@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/preferences.py
-Tiny local preferences store used for UI convenience features.
-"""
+
 from __future__ import annotations
 
 import json

@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/signup_screen.py
-Account creation screen for customer and owner roles.
-"""
+
 from __future__ import annotations
 
 import tkinter as tk
@@ -117,8 +114,61 @@ class SignupScreen(ttk.Frame):
             anchor="w", pady=(6, 16)
         )
 
-        form = ttk.Frame(card, style="Card.TFrame")
-        form.pack(fill="both", expand=True)
+        # Create a container frame to hold the Canvas and Scrollbar without extra borders
+        container = tk.Frame(card, bg=COLORS.panel)
+        container.pack(fill="both", expand=True)
+        container.columnconfigure(0, weight=1)
+        container.rowconfigure(0, weight=1)
+
+        # Create canvas with matching panel background
+        canvas = tk.Canvas(container, highlightthickness=0, bg=COLORS.panel)
+        canvas.grid(row=0, column=0, sticky="nsew")
+
+        # Create scrollbar matching standard scrollbar style
+        scrollbar = ttk.Scrollbar(container, orient="vertical", command=canvas.yview, style="TScrollbar")
+        scrollbar.grid(row=0, column=1, sticky="ns")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Create form frame inside canvas
+        form = tk.Frame(canvas, bg=COLORS.panel)
+        canvas_window = canvas.create_window((0, 0), window=form, anchor="nw")
+
+        # Bind configuration events for scrolling and resizing
+        form.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas.bind("<Configure>", lambda e: canvas.itemconfig(canvas_window, width=e.width))
+
+        # Bind mouse wheel for scrolling
+        def _on_mousewheel(event):
+            try:
+                widget = event.widget
+                curr = widget
+                while curr:
+                    if curr == canvas:
+                        if event.num == 5 or event.delta < 0:
+                            canvas.yview_scroll(1, "units")
+                        elif event.num == 4 or event.delta > 0:
+                            canvas.yview_scroll(-1, "units")
+                        break
+                    parent_name = curr.winfo_parent()
+                    if not parent_name:
+                        break
+                    curr = self.nametowidget(parent_name)
+            except Exception:
+                pass
+
+        canvas.bind_all("<MouseWheel>", _on_mousewheel)
+        canvas.bind_all("<Button-4>", _on_mousewheel)
+        canvas.bind_all("<Button-5>", _on_mousewheel)
+
+        def _cleanup_binds(event):
+            if event.widget == self:
+                try:
+                    canvas.unbind_all("<MouseWheel>")
+                    canvas.unbind_all("<Button-4>")
+                    canvas.unbind_all("<Button-5>")
+                except Exception:
+                    pass
+        self.bind("<Destroy>", _cleanup_binds)
 
         self._field(form, "Full Name", self.full_name_var)
         self._field(form, "ID / Email", self.email_var)

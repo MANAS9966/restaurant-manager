@@ -1,7 +1,4 @@
-"""
-database/connection.py
-SQLite connection pool with thread-safety and foreign key support.
-"""
+
 import sqlite3
 import threading
 import os
@@ -10,14 +7,7 @@ from queue import Queue, Empty
 
 
 def _convert_timestamp(value):
-    """
-    Parse SQLite TIMESTAMP values robustly.
-
-    Handles:
-    - SQLite CURRENT_TIMESTAMP format: YYYY-MM-DD HH:MM:SS
-    - ISO 8601 strings with or without timezone
-    - Unknown values are returned as text instead of raising during fetch
-    """
+    
     if value is None:
         return None
     if isinstance(value, bytes):

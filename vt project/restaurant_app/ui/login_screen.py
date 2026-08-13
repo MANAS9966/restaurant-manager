@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/login_screen.py
-Branded login landing page with role-based sign-in.
-"""
+""" Login screen """
 from __future__ import annotations
 
 import tkinter as tk
@@ -48,7 +45,7 @@ class LoginScreen(ttk.Frame):
 
         title = tk.Label(
             brand,
-            text="Restaurant Management System",
+            text="PI-RESTRO",
             bg=COLORS.hero,
             fg="#ffffff",
             font=("Segoe UI Semibold", 26),

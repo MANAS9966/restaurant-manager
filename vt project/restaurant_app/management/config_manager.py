@@ -1,8 +1,4 @@
-"""
-management/config_manager.py
-Loads, validates, and provides configuration to all layers.
-Supports environment-variable overrides and hot-reload.
-"""
+
 from __future__ import annotations
 import json
 import os

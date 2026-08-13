@@ -1,7 +1,4 @@
-"""
-business_logic/order_manager.py
-Business logic for order creation, status transitions, and history.
-"""
+
 from __future__ import annotations
 import uuid
 from datetime import datetime, timedelta, timezone

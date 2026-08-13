@@ -1,8 +1,4 @@
-"""
-management/app_manager.py
-High-level application orchestrator for configuration, database, sessions,
-and service wiring.
-"""
+
 from __future__ import annotations
 
 import logging
@@ -425,7 +421,7 @@ class AppManager:
         if email:
             self._mcp.send_email(
                 email,
-                "Welcome to Restaurant Management System",
+                "Welcome to PI-RESTRO",
                 "Your account has been created successfully.",
             )
 
@@ -458,7 +454,7 @@ class AppManager:
     @property
     def app_name(self) -> str:
         self._ensure_ready()
-        return self._config.app.get("name", "Restaurant Management System")
+        return self._config.app.get("name", "PI-RESTRO")
 
     @property
     def version(self) -> str:

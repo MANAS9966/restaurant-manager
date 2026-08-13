@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/admin_tab.py
-Admin dashboard with users, owners, and high level metrics.
-"""
+""" Admin """
 from __future__ import annotations
 
 import tkinter as tk

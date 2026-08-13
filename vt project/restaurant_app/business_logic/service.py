@@ -1,8 +1,4 @@
-"""
-business_logic/service.py
-Orchestration facade — single entry point used by the UI layer.
-All managers are wired together here.
-"""
+
 from __future__ import annotations
 
 from business_logic.exceptions import ValidationError
@@ -14,12 +10,14 @@ from database.dao.dish_dao import DishDAO
 from database.dao.order_dao import OrderDAO
 from database.dao.session_dao import SessionDAO
 from database.dao.audit_dao import AuditDAO
+from database.dao.booking_dao import BookingDAO
 
 from business_logic.user_manager import UserManager
 from business_logic.owner_manager import OwnerManager
 from business_logic.dish_manager import DishManager
 from business_logic.discount_manager import DiscountManager
 from business_logic.order_manager import OrderManager
+from business_logic.booking_manager import BookingManager
 
 
 class RestaurantService:
@@ -33,6 +31,7 @@ class RestaurantService:
         self.order_dao   = OrderDAO(db)
         self.session_dao = SessionDAO(db)
         self.audit_dao   = AuditDAO(db)
+        self.booking_dao = BookingDAO(db)
 
         # Managers
         self.users    = UserManager(self.user_dao, self.audit_dao, password_min_length)
@@ -43,6 +42,7 @@ class RestaurantService:
         self.orders   = OrderManager(self.order_dao, self.dish_dao,
                                      self.owner_dao, self.audit_dao,
                                      self.discounts)
+        self.bookings = BookingManager(self.booking_dao, self.owner_dao, self.audit_dao)
 
     # Convenience shortcuts (pass-through to avoid deep dot-chaining in UI)
 
@@ -125,3 +125,25 @@ class RestaurantService:
                 raise
 
         return result
+
+    def create_booking(self, customer_id: int, owner_id: int, booking_date: str,
+                       booking_time: str, number_of_guests: int,
+                       special_requests: str = None) -> dict:
+        return self.bookings.create_booking(
+            customer_id, owner_id, booking_date, booking_time, number_of_guests, special_requests
+        )
+
+    def get_customer_bookings(self, customer_id: int, status: str = None,
+                              limit: int = 50, offset: int = 0) -> list[dict]:
+        return self.bookings.get_customer_bookings(customer_id, status, limit, offset)
+
+    def get_owner_bookings(self, owner_user_id: int, actor_role: str,
+                           status: str = None, limit: int = 50, offset: int = 0) -> list[dict]:
+        owner = self.owners.get_owner_by_user(owner_user_id)
+        if not owner:
+            raise ValidationError("Owner profile not found.")
+        return self.bookings.get_owner_bookings(owner["id"], status, limit, offset)
+
+    def update_booking_status(self, booking_id: int, new_status: str,
+                              actor_id: int, actor_role: str) -> dict:
+        return self.bookings.update_booking_status(booking_id, new_status, actor_id, actor_role)

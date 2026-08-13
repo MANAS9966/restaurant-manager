@@ -181,6 +181,28 @@ CREATE INDEX IF NOT EXISTS idx_sessions_token    ON sessions(session_token);
 CREATE INDEX IF NOT EXISTS idx_sessions_user     ON sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_audit_user        ON audit_log(user_id);
 CREATE INDEX IF NOT EXISTS idx_notifications_rcv ON notifications(recipient_id);
+
+-- TABLE_BOOKINGS
+CREATE TABLE IF NOT EXISTS table_bookings (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    booking_number      VARCHAR(50) UNIQUE NOT NULL,
+    customer_id         INTEGER NOT NULL,
+    owner_id            INTEGER NOT NULL,
+    booking_date        VARCHAR(10) NOT NULL,
+    booking_time        VARCHAR(5) NOT NULL,
+    number_of_guests    INTEGER NOT NULL CHECK(number_of_guests > 0),
+    status              TEXT NOT NULL DEFAULT 'pending'
+                            CHECK(status IN ('pending','confirmed','cancelled','completed')),
+    special_requests    TEXT,
+    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES users(id),
+    FOREIGN KEY (owner_id)    REFERENCES restaurant_owners(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_table_bookings_customer ON table_bookings(customer_id);
+CREATE INDEX IF NOT EXISTS idx_table_bookings_owner ON table_bookings(owner_id);
+CREATE INDEX IF NOT EXISTS idx_table_bookings_status ON table_bookings(status);
 """
 
 
@@ -198,7 +220,7 @@ def create_schema(db: Database):
 def drop_all(db: Database):
     """Drop everything — used for testing resets."""
     tables = [
-        "price_history", "notifications", "audit_log",
+        "table_bookings", "price_history", "notifications", "audit_log",
         "sessions", "order_items", "orders",
         "dishes", "restaurant_owners", "users"
     ]

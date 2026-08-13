@@ -1,8 +1,4 @@
-"""
-management/session_manager.py
-In-memory session lifecycle management.
-Sessions expire after configured inactivity timeout.
-"""
+
 from __future__ import annotations
 import threading
 import uuid

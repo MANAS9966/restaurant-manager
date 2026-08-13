@@ -1,8 +1,3 @@
-"""
-business_logic/exceptions.py
-Custom exception hierarchy for the restaurant management system.
-"""
-
 
 class RestaurantAppError(Exception):
     """Base exception for all app-level errors."""

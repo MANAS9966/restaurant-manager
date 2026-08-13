@@ -1,7 +1,4 @@
-"""
-business_logic/logger.py
-Centralized logging with rotating file handler + console output.
-"""
+
 import logging
 import os
 from logging.handlers import RotatingFileHandler

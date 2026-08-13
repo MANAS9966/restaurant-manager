@@ -1,7 +1,4 @@
-"""
-Project entry point for the restaurant management system.
-Bootstraps the application manager and launches the desktop display.
-"""
+"""main entry point...."""
 from __future__ import annotations
 
 import json

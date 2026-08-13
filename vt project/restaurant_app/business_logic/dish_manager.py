@@ -1,7 +1,4 @@
-"""
-business_logic/dish_manager.py
-Business logic for dish CRUD, ownership checks, and image handling.
-"""
+
 from __future__ import annotations
 import os
 import shutil
@@ -28,11 +25,11 @@ class DishManager:
         self._discount = discount_manager
         os.makedirs(IMAGES_DIR, exist_ok=True)
 
-    # ---------------------------------------------------------------- helpers
+    # ----------------------------------------------------------------
 
     def _assert_owner(self, dish_id: int, actor_user_id: int,
                       actor_role: str) -> dict:
-        """Raise AuthorizationError if actor doesn't own the dish."""
+        
         dish = self._dishes.get_dish_by_id(dish_id)
         if not dish:
             raise NotFoundError(f"Dish {dish_id} not found.")
@@ -59,7 +56,7 @@ class DishManager:
         if max_discount is not None and not (0 <= max_discount <= 100):
             raise ValidationError("Max discount must be between 0 and 100.")
 
-    # ---------------------------------------------------------------- public API
+    # ----------------------------------------------------------------
 
     def create_dish(self, actor_user_id: int, actor_role: str,
                     name: str, category: str, price: float,

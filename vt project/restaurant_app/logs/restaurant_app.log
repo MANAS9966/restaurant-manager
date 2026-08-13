@@ -338,3 +338,99 @@
 [2026-07-13 10:13:31] INFO     restaurant_app.app — Application initialised: Restaurant Management System
 [2026-07-13 10:13:44] INFO     restaurant_app — User logged in: manasr@gmail.com
 [2026-07-13 10:13:52] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-07-13 10:25:01] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:25:01] INFO     restaurant_app.app — Application initialised: Restaurant Management System
+[2026-07-13 10:28:43] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:28:43] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:28:55] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:28:55] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:28:58] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:28:58] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:29:02] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:29:02] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:29:05] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:29:05] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:29:07] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:29:07] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:29:10] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:29:10] INFO     restaurant_app.app — Application initialised: pi-restro
+[2026-07-13 10:31:02] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:31:02] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-13 10:31:57] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:31:57] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-13 10:33:19] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:33:19] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-13 10:36:21] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:36:22] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-13 10:36:37] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-13 10:36:37] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-14 11:39:12] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-14 11:39:13] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-14 11:40:16] INFO     restaurant_app — User logged in: manasr@gmail.com
+[2026-07-24 12:05:58] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-24 12:05:59] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-28 16:09:45] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-28 16:09:46] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-28 16:11:26] INFO     restaurant_app — User registered: hii387@gmail.com (role=customer)
+[2026-07-28 16:11:37] INFO     restaurant_app — User logged in: hii387@gmail.com
+[2026-07-28 16:13:04] INFO     restaurant_app — Order ORD-106DE0A263 created by customer 10
+[2026-07-29 14:56:36] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 14:56:36] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 15:04:27] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 15:04:27] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 15:07:36] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 15:07:36] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 15:17:14] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 15:17:14] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 15:17:50] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 15:17:50] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 15:18:02] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 15:18:02] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 15:18:18] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 15:18:18] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 23:19:42] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-07-29 23:19:42] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-07-29 23:20:54] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-07-29 23:21:14] INFO     restaurant_app — User logged in: admin@gmail.com
+[2026-08-02 19:03:59] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-02 19:04:00] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-03 13:34:35] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-03 13:34:35] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-03 13:34:50] INFO     restaurant_app — User logged in: admin@gmail.com
+[2026-08-05 15:06:07] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-05 15:06:07] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-05 15:12:43] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-05 15:12:43] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-05 15:14:12] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-05 15:14:12] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-05 15:21:55] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-05 15:21:55] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-05 15:22:14] INFO     restaurant_app — User logged in: admin@gmail.com
+[2026-08-05 15:23:14] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-08-05 15:23:25] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 3 attempt(s) remaining.
+[2026-08-05 15:23:37] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 2 attempt(s) remaining.
+[2026-08-05 15:23:55] INFO     restaurant_app — User logged in: manasr@gmail.com
+[2026-08-05 15:24:43] INFO     restaurant_app — Order ORD-ABD14A8778 created by customer 9
+[2026-08-05 15:27:47] INFO     restaurant_app — User registered: manasr18@gmail.com (role=owner)
+[2026-08-05 15:27:47] INFO     restaurant_app — Owner profile created for user 11: briyani hub
+[2026-08-05 15:28:02] INFO     restaurant_app — User logged in: manasr18@gmail.com
+[2026-08-05 15:30:44] INFO     restaurant_app — User logged in: admin@gmail.com
+[2026-08-05 15:31:53] INFO     restaurant_app — Admin set user 10 status → inactive
+[2026-08-05 15:32:04] INFO     restaurant_app — Admin set user 10 status → inactive
+[2026-08-05 15:33:26] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-08-05 15:33:45] INFO     restaurant_app — User logged in: manasr18@gmail.com
+[2026-08-05 15:39:42] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-05 15:39:42] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-05 15:39:57] INFO     restaurant_app — User logged in: manasr@gmail.com
+[2026-08-05 15:41:13] INFO     restaurant_app — Order ORD-7FD5418A06 created by customer 9
+[2026-08-05 15:51:44] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-05 15:51:44] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-13 19:48:06] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-13 19:48:06] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-13 19:55:46] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-13 19:55:46] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-13 19:56:00] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-08-13 19:56:25] INFO     restaurant_app — User logged in: admin@gmail.com
+[2026-08-13 19:56:51] INFO     restaurant_app — Admin set user 9 status → active
+[2026-08-13 19:58:57] INFO     restaurant_app — User registered: mroy@gmail.com (role=customer)
+[2026-08-13 19:59:03] INFO     restaurant_app — User logged in: mroy@gmail.com

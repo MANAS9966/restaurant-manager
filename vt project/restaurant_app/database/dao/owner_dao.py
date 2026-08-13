@@ -1,7 +1,4 @@
-"""
-database/dao/owner_dao.py
-CRUD operations for the restaurant_owners table.
-"""
+
 from __future__ import annotations
 from database.dao.base_dao import BaseDAO
 

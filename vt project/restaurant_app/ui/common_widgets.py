@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/common_widgets.py
-Reusable visual building blocks for the Tkinter UI.
-"""
+
 from __future__ import annotations
 
 import tkinter as tk

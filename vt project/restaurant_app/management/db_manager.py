@@ -1,7 +1,4 @@
-"""
-management/db_manager.py
-Initialises and provides the Database singleton from configuration.
-"""
+
 from __future__ import annotations
 import os
 import logging
@@ -14,10 +11,7 @@ log = logging.getLogger("restaurant_app.db")
 
 
 class DBManager:
-    """
-    Reads SQLite path from ConfigManager, creates the Database singleton,
-    and ensures the schema exists.
-    """
+    
 
     _instance: "DBManager | None" = None
 
@@ -40,7 +34,7 @@ class DBManager:
     def reset(cls):
         cls._instance = None
 
-    # ------------------------------------------------------------------ init
+    # ------------------------------------------------------------------ 
 
     def initialise(self) -> Database:
         """Create (or reuse) the Database singleton and run schema creation."""
@@ -68,7 +62,7 @@ class DBManager:
             return self.initialise()
         return self._db
 
-    # ------------------------------------------------------------------ health
+    # ------------------------------------------------------------------ 
 
     def ping(self) -> bool:
         """Return True if the database is reachable."""

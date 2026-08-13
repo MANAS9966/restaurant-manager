@@ -1,7 +1,4 @@
-"""
-database/dao/session_dao.py
-CRUD for the sessions table.
-"""
+
 from __future__ import annotations
 from database.dao.base_dao import BaseDAO
 

@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/styles.py
-Shared Tkinter styling for the restaurant management UI.
-"""
+
 from __future__ import annotations
 
 import tkinter as tk

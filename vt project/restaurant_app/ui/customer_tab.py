@@ -1,9 +1,8 @@
-"""
-restaurant_app/ui/customer_tab.py
-Customer workspace for restaurant browsing, cart building, and checkout.
-"""
+""" customer """
+
 from __future__ import annotations
 
+from datetime import datetime
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
@@ -47,16 +46,21 @@ class CustomerTab(ttk.Frame):
         self.menu_tab = ttk.Frame(self.notebook, style="App.TFrame")
         cart_tab = ttk.Frame(self.notebook, style="App.TFrame")
         orders_tab = ttk.Frame(self.notebook, style="App.TFrame")
+        bookings_tab = ttk.Frame(self.notebook, style="App.TFrame")
 
         self.notebook.add(browse_tab, text="Browse Restaurants")
         self.notebook.add(self.menu_tab, text="Restaurant Menu")
         self.notebook.add(cart_tab, text="My Cart")
         self.notebook.add(orders_tab, text="Order History")
+        self.notebook.add(bookings_tab, text="My Bookings")
 
         restaurant_actions = ttk.Frame(browse_tab)
         restaurant_actions.pack(side="bottom", fill="x", pady=(10, 12))
         ttk.Button(restaurant_actions, text="Load Menu", style="Accent.TButton", command=self._load_selected_menu).pack(
             side="left"
+        )
+        ttk.Button(restaurant_actions, text="Book Table", style="Accent.TButton", command=self._book_table).pack(
+            side="left", padx=(10, 0)
         )
         ttk.Button(restaurant_actions, text="Refresh", style="Ghost.TButton", command=self.refresh).pack(side="right")
 
@@ -68,6 +72,22 @@ class CustomerTab(ttk.Frame):
             search_hint="Search restaurants",
         )
         self.restaurants_table.pack(fill="both", expand=True)
+
+        booking_actions = ttk.Frame(bookings_tab)
+        booking_actions.pack(side="bottom", fill="x", pady=(10, 12))
+        ttk.Button(booking_actions, text="Cancel Booking", style="Danger.TButton", command=self._cancel_selected_booking).pack(
+            side="left"
+        )
+        ttk.Button(booking_actions, text="Refresh", style="Ghost.TButton", command=self.refresh).pack(side="right")
+
+        self.bookings_table = SearchableTable(
+            bookings_tab,
+            title="My Bookings",
+            columns=["Booking ID", "Booking #", "Restaurant", "Date", "Time", "Guests", "Status"],
+            subtitle="Track your dining table bookings.",
+            search_hint="Search bookings",
+        )
+        self.bookings_table.pack(fill="both", expand=True)
 
         dish_actions = ttk.Frame(self.menu_tab)
         dish_actions.pack(side="bottom", fill="x", pady=(0, 12))
@@ -316,6 +336,27 @@ class CustomerTab(ttk.Frame):
         ]
         self.orders_table.set_rows(order_rows)
         self.order_items_table.clear()
+
+        try:
+            bookings = self.service.get_customer_bookings(
+                self.current_user["id"], limit=100
+            )
+        except Exception:
+            bookings = []
+        booking_rows = [
+            (
+                b["id"],
+                b["booking_number"],
+                b.get("business_name", ""),
+                b["booking_date"],
+                b["booking_time"],
+                b["number_of_guests"],
+                b["status"],
+            )
+            for b in bookings
+        ]
+        self.bookings_table.set_rows(booking_rows)
+
         self._sync_cart_view()
 
     def _on_order_selected(self, event=None) -> None:
@@ -338,3 +379,75 @@ class CustomerTab(ttk.Frame):
             self.order_items_table.set_rows(item_rows)
         except Exception:
             self.order_items_table.clear()
+
+    def _book_table(self) -> None:
+        owner_id = self._selected_restaurant_owner_id()
+        if owner_id is None:
+            messagebox.showinfo("Book Table", "Select a restaurant first.")
+            return
+
+        today_str = datetime.today().strftime("%Y-%m-%d")
+
+        dialog = FormDialog(
+            self,
+            "Book Dining Table",
+            [
+                {"name": "booking_date", "label": "Booking Date (YYYY-MM-DD)", "default": today_str, "required": True},
+                {"name": "booking_time", "label": "Booking Time (HH:MM, 24-hr)", "default": "19:00", "required": True},
+                {"name": "number_of_guests", "label": "Number of Guests", "default": "2", "required": True},
+                {"name": "special_requests", "label": "Special Requests", "kind": "textarea"},
+            ],
+        )
+        if not dialog.result:
+            return
+
+        try:
+            guests = int(dialog.result["number_of_guests"])
+        except ValueError:
+            messagebox.showerror("Book Table", "Number of guests must be a valid integer.")
+            return
+
+        try:
+            booking = self.service.create_booking(
+                customer_id=self.current_user["id"],
+                owner_id=owner_id,
+                booking_date=dialog.result["booking_date"],
+                booking_time=dialog.result["booking_time"],
+                number_of_guests=guests,
+                special_requests=dialog.result.get("special_requests") or None,
+            )
+            messagebox.showinfo(
+                "Table Booked",
+                f"Table booked successfully! Booking Reference: {booking['booking_number']}.",
+            )
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Book Table", str(exc))
+
+    def _cancel_selected_booking(self) -> None:
+        row = self.bookings_table.get_selected_row()
+        if not row:
+            messagebox.showinfo("Cancel Booking", "Select a booking first.")
+            return
+
+        booking_id = int(row[0])
+        status = row[6]
+
+        if status not in ("pending", "confirmed"):
+            messagebox.showinfo("Cancel Booking", f"Cannot cancel a booking in '{status}' status.")
+            return
+
+        if not messagebox.askyesno("Cancel Booking", "Are you sure you want to cancel this booking?"):
+            return
+
+        try:
+            self.service.update_booking_status(
+                booking_id=booking_id,
+                new_status="cancelled",
+                actor_id=self.current_user["id"],
+                actor_role=self.current_user["role"]
+            )
+            messagebox.showinfo("Cancel Booking", "Booking cancelled successfully.")
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Cancel Booking", str(exc))

@@ -1,10 +1,4 @@
-"""
-restaurant_app package bootstrap.
 
-Adds the package directory to sys.path so the existing absolute imports used
-throughout the codebase continue to work when the project is imported from the
-repository root.
-"""
 from __future__ import annotations
 
 import sys

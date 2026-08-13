@@ -1,4 +1,4 @@
 """
-Desktop UI package for the restaurant management system.
+Desktop UI package for PI-RESTRO.
 """
 

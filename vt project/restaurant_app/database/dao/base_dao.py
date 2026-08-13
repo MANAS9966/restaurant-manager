@@ -1,7 +1,4 @@
-"""
-database/dao/base_dao.py
-Abstract base DAO with common helpers shared by all DAOs.
-"""
+
 from __future__ import annotations
 from typing import Any
 from database.connection import Database

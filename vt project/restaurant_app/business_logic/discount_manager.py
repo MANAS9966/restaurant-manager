@@ -1,7 +1,4 @@
-"""
-business_logic/discount_manager.py
-All discount validation and effective-price calculations.
-"""
+
 from __future__ import annotations
 from business_logic.exceptions import DiscountError, NotFoundError
 from database.dao.dish_dao import DishDAO
@@ -30,7 +27,7 @@ class DiscountManager:
 
     def set_discount(self, actor_user_id: int, dish_id: int,
                      discount: float) -> dict:
-        """Set discount and return updated price info."""
+
         self.validate_discount(dish_id, discount)
         dish = self._dishes.get_dish_by_id(dish_id)
 

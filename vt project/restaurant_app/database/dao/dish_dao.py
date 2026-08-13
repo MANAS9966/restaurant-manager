@@ -1,7 +1,4 @@
-"""
-database/dao/dish_dao.py
-CRUD + search for the dishes table.
-"""
+
 from __future__ import annotations
 from database.dao.base_dao import BaseDAO
 

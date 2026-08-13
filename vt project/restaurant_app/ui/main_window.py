@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/main_window.py
-Main window controller that shows login first and then routes to the role pages.
-"""
+
 from __future__ import annotations
 
 import tkinter as tk

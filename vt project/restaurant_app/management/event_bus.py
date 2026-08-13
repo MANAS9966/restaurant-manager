@@ -1,13 +1,4 @@
-"""
-management/event_bus.py
-Lightweight publish/subscribe event bus for inter-layer communication.
 
-Supported events:
-  order.created, order.status_changed, order.cancelled
-  user.registered, user.status_changed
-  owner.verified, owner.rejected
-  dish.created, dish.updated, dish.deleted
-"""
 from __future__ import annotations
 import threading
 from typing import Callable

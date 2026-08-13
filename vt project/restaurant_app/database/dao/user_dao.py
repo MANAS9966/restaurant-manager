@@ -1,7 +1,4 @@
-"""
-database/dao/user_dao.py
-CRUD operations for the users table.
-"""
+
 from __future__ import annotations
 from database.dao.base_dao import BaseDAO
 from database.connection import Database

@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/owner_tab.py
-Owner workspace for dishes and restaurant analytics.
-"""
+"""Owner"""
 from __future__ import annotations
 
 import tkinter as tk
@@ -58,8 +55,10 @@ class OwnerTab(ttk.Frame):
 
         dishes_frame = ttk.Frame(split, style="App.TFrame")
         orders_frame = ttk.Frame(split, style="App.TFrame")
+        bookings_frame = ttk.Frame(split, style="App.TFrame")
         split.add(dishes_frame, text="Dishes")
         split.add(orders_frame, text="Incoming Orders")
+        split.add(bookings_frame, text="Table Bookings")
 
         dish_actions = ttk.Frame(dishes_frame)
         dish_actions.pack(side="bottom", fill="x", pady=(10, 0))
@@ -91,6 +90,23 @@ class OwnerTab(ttk.Frame):
         )
         self.orders_table.pack(fill="both", expand=True, pady=(12, 0))
         self.orders_table.tree.bind("<Button-3>", self._show_order_context_menu)
+
+        booking_actions = ttk.Frame(bookings_frame)
+        booking_actions.pack(side="bottom", fill="x", pady=(10, 0))
+        ttk.Button(booking_actions, text="Confirm Booking", style="Accent.TButton", command=self._confirm_booking).pack(side="left")
+        ttk.Button(booking_actions, text="Complete Booking", style="Accent.TButton", command=self._complete_booking).pack(side="left", padx=(10, 0))
+        ttk.Button(booking_actions, text="Cancel Booking", style="Danger.TButton", command=self._cancel_booking).pack(side="left", padx=(10, 0))
+        ttk.Button(booking_actions, text="Refresh", style="Ghost.TButton", command=self.refresh).pack(side="right")
+
+        self.bookings_table = SearchableTable(
+            bookings_frame,
+            title="Table Bookings",
+            columns=["Booking ID", "Booking #", "Customer", "Date", "Time", "Guests", "Status"],
+            subtitle="Manage incoming table bookings.",
+            search_hint="Search bookings",
+        )
+        self.bookings_table.pack(fill="both", expand=True, pady=(12, 0))
+        self.bookings_table.tree.bind("<Button-3>", self._show_booking_context_menu)
 
     def _selected_dish_id(self) -> int | None:
         row = self.dishes_table.get_selected_row()
@@ -258,6 +274,24 @@ class OwnerTab(ttk.Frame):
                 for order in orders
             ]
             self.orders_table.set_rows(order_rows)
+
+            try:
+                bookings = self.service.get_owner_bookings(self.current_user["id"], self.current_user["role"], limit=100)
+            except Exception:
+                bookings = []
+            booking_rows = [
+                (
+                    b["id"],
+                    b["booking_number"],
+                    b.get("customer_name", ""),
+                    b["booking_date"],
+                    b["booking_time"],
+                    b["number_of_guests"],
+                    b["status"],
+                )
+                for b in bookings
+            ]
+            self.bookings_table.set_rows(booking_rows)
         except Exception as exc:
             self.profile_var.set(str(exc))
             self.total_dishes_var.set("0")
@@ -265,6 +299,7 @@ class OwnerTab(ttk.Frame):
             self.revenue_var.set("$0.00")
             self.dishes_table.clear()
             self.orders_table.clear()
+            self.bookings_table.clear()
 
     def _show_order_context_menu(self, event) -> None:
         item = self.orders_table.tree.identify_row(event.y)
@@ -302,3 +337,93 @@ class OwnerTab(ttk.Frame):
             self.refresh()
         except Exception as exc:
             messagebox.showerror("Order Status", str(exc))
+
+    def _selected_booking(self) -> tuple[int | None, str | None]:
+        row = self.bookings_table.get_selected_row()
+        if not row:
+            return None, None
+        try:
+            return int(row[0]), str(row[6])
+        except Exception:
+            return None, None
+
+    def _confirm_booking(self) -> None:
+        booking_id, status = self._selected_booking()
+        if booking_id is None:
+            messagebox.showinfo("Booking", "Select a booking first.")
+            return
+        if status != "pending":
+            messagebox.showinfo("Booking", f"Cannot confirm a booking in '{status}' status.")
+            return
+        try:
+            self.service.update_booking_status(booking_id, "confirmed", self.current_user["id"], self.current_user["role"])
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Booking", str(exc))
+
+    def _complete_booking(self) -> None:
+        booking_id, status = self._selected_booking()
+        if booking_id is None:
+            messagebox.showinfo("Booking", "Select a booking first.")
+            return
+        if status not in ("confirmed", "pending"):
+            messagebox.showinfo("Booking", f"Cannot complete a booking in '{status}' status.")
+            return
+        try:
+            self.service.update_booking_status(booking_id, "completed", self.current_user["id"], self.current_user["role"])
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Booking", str(exc))
+
+    def _cancel_booking(self) -> None:
+        booking_id, status = self._selected_booking()
+        if booking_id is None:
+            messagebox.showinfo("Booking", "Select a booking first.")
+            return
+        if status not in ("pending", "confirmed"):
+            messagebox.showinfo("Booking", f"Cannot cancel a booking in '{status}' status.")
+            return
+        if not messagebox.askyesno("Cancel Booking", "Cancel this booking?"):
+            return
+        try:
+            self.service.update_booking_status(booking_id, "cancelled", self.current_user["id"], self.current_user["role"])
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Booking", str(exc))
+
+    def _show_booking_context_menu(self, event) -> None:
+        item = self.bookings_table.tree.identify_row(event.y)
+        if not item:
+            return
+        self.bookings_table.tree.selection_set(item)
+
+        row = self.bookings_table.get_selected_row()
+        if not row:
+            return
+        booking_id = int(row[0])
+        current_status = row[6]
+
+        menu = tk.Menu(
+            self,
+            tearoff=0,
+            bg=COLORS.panel,
+            fg=COLORS.text,
+            activebackground=COLORS.accent,
+            activeforeground="#ffffff",
+            relief="solid",
+            borderwidth=1
+        )
+        statuses = ["pending", "confirmed", "completed", "cancelled"]
+        for s in statuses:
+            label = s.title()
+            if s == current_status:
+                label += " ✓"
+            menu.add_command(label=label, command=lambda status=s, bid=booking_id: self._update_booking_status(bid, status))
+        menu.post(event.x_root, event.y_root)
+
+    def _update_booking_status(self, booking_id: int, new_status: str) -> None:
+        try:
+            self.service.update_booking_status(booking_id, new_status, self.current_user["id"], self.current_user["role"])
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Booking Status", str(exc))

@@ -1,7 +1,4 @@
-"""
-database/dao/order_dao.py
-CRUD + status management for orders and order_items.
-"""
+
 from __future__ import annotations
 from database.dao.base_dao import BaseDAO
 

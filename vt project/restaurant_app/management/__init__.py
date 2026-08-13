@@ -1,5 +1,5 @@
 """
-management/__init__.py
+
 Management layer package.
 """
 from .app_manager import AppManager

@@ -1,7 +1,4 @@
-"""
-restaurant_app/ui/dialogs.py
-Small reusable modal dialogs for data entry.
-"""
+
 from __future__ import annotations
 
 import tkinter as tk
