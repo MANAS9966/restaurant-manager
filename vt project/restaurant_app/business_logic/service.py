@@ -126,11 +126,44 @@ class RestaurantService:
 
         return result
 
+    def verify_owner(self, actor_role: str, actor_user_id: int,
+                     owner_id: int, approved: bool,
+                     rejection_reason: str = None) -> dict:
+        return self.owners.verify_owner(actor_role, actor_user_id, owner_id, approved, rejection_reason)
+
+    def add_restaurant_owner(self, actor_role: str, actor_user_id: int,
+                             full_name: str, email: str, password: str,
+                             business_name: str, license_number: str,
+                             phone: str = None, address: str = None,
+                             city: str = None, state: str = None,
+                             postal_code: str = None) -> dict:
+        if actor_role != "admin":
+            raise ValidationError("Only admins can add restaurants directly.")
+
+        res = self.register_account(
+            full_name=full_name,
+            email=email,
+            password=password,
+            role="owner",
+            phone=phone,
+            address=address,
+            business_name=business_name,
+            license_number=license_number,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+        )
+        owner = res["owner"]
+        if owner:
+            self.owners.verify_owner("admin", actor_user_id, owner["id"], approved=True)
+        return res
+
     def create_booking(self, customer_id: int, owner_id: int, booking_date: str,
                        booking_time: str, number_of_guests: int,
+                       dining_area: str = "Main Dining Area",
                        special_requests: str = None) -> dict:
         return self.bookings.create_booking(
-            customer_id, owner_id, booking_date, booking_time, number_of_guests, special_requests
+            customer_id, owner_id, booking_date, booking_time, number_of_guests, dining_area, special_requests
         )
 
     def get_customer_bookings(self, customer_id: int, status: str = None,

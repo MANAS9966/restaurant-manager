@@ -4,16 +4,19 @@ from __future__ import annotations
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter import simpledialog
 
 from restaurant_app.ui.common_widgets import MetricCard, SearchableTable, SectionHeader
+from restaurant_app.ui.dialogs import FormDialog
 
 
 class AdminTab(ttk.Frame):
     """Admin workspace."""
 
-    def __init__(self, parent, service):
+    def __init__(self, parent, service, current_user: dict | None = None):
         super().__init__(parent, padding=16)
         self.service = service
+        self.current_user = current_user or {"id": 1, "role": "admin"}
         self.user_count_var = tk.StringVar(value="0")
         self.owner_count_var = tk.StringVar(value="0")
         self.dish_count_var = tk.StringVar(value="0")
@@ -77,12 +80,30 @@ class AdminTab(ttk.Frame):
         ttk.Button(action_row, text="Reactivate User", style="Accent.TButton", command=self._activate_selected_user).pack(
             side="left", padx=(10, 0)
         )
+        ttk.Button(action_row, text="Approve Owner", style="Accent.TButton", command=self._approve_selected_owner).pack(
+            side="left", padx=(10, 0)
+        )
+        ttk.Button(action_row, text="Reject Owner", style="Danger.TButton", command=self._reject_selected_owner).pack(
+            side="left", padx=(10, 0)
+        )
+        ttk.Button(action_row, text="Add Restaurant", style="Accent.TButton", command=self._add_restaurant).pack(
+            side="left", padx=(10, 0)
+        )
         ttk.Button(action_row, text="Refresh", style="Ghost.TButton", command=self.refresh).pack(
             side="right"
         )
 
     def _selected_user_id(self) -> int | None:
         row = self.users_table.get_selected_row()
+        if not row:
+            return None
+        try:
+            return int(row[0])
+        except Exception:
+            return None
+
+    def _selected_owner_id(self) -> int | None:
+        row = self.owners_table.get_selected_row()
         if not row:
             return None
         try:
@@ -112,6 +133,73 @@ class AdminTab(ttk.Frame):
         except Exception as exc:
             messagebox.showerror("Admin", str(exc))
 
+    def _approve_selected_owner(self) -> None:
+        owner_id = self._selected_owner_id()
+        if owner_id is None:
+            messagebox.showinfo("Admin", "Select a restaurant owner first.")
+            return
+        try:
+            self.service.verify_owner("admin", self.current_user["id"], owner_id, approved=True)
+            messagebox.showinfo("Admin", f"Restaurant owner {owner_id} approved successfully.")
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Admin", str(exc))
+
+    def _reject_selected_owner(self) -> None:
+        owner_id = self._selected_owner_id()
+        if owner_id is None:
+            messagebox.showinfo("Admin", "Select a restaurant owner first.")
+            return
+        reason = simpledialog.askstring("Reject Owner", "Enter rejection reason (optional):", parent=self)
+        if reason is None:
+            return
+        try:
+            self.service.verify_owner("admin", self.current_user["id"], owner_id, approved=False, rejection_reason=reason or None)
+            messagebox.showinfo("Admin", f"Restaurant owner {owner_id} rejected.")
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Admin", str(exc))
+
+    def _add_restaurant(self) -> None:
+        dialog = FormDialog(
+            self,
+            "Add Restaurant Owner",
+            [
+                {"name": "full_name", "label": "Owner Full Name", "required": True},
+                {"name": "email", "label": "Owner Email", "required": True},
+                {"name": "password", "label": "Password", "required": True},
+                {"name": "phone", "label": "Phone Number"},
+                {"name": "business_name", "label": "Restaurant/Business Name", "required": True},
+                {"name": "license_number", "label": "License Number (e.g. LIC-12345)", "required": True},
+                {"name": "city", "label": "City"},
+                {"name": "state", "label": "State"},
+                {"name": "postal_code", "label": "Postal Code"},
+            ],
+        )
+        if not dialog.result:
+            return
+        try:
+            res = self.service.add_restaurant_owner(
+                actor_role="admin",
+                actor_user_id=self.current_user["id"],
+                full_name=dialog.result["full_name"],
+                email=dialog.result["email"],
+                password=dialog.result["password"],
+                business_name=dialog.result["business_name"],
+                license_number=dialog.result["license_number"],
+                phone=dialog.result.get("phone") or None,
+                city=dialog.result.get("city") or None,
+                state=dialog.result.get("state") or None,
+                postal_code=dialog.result.get("postal_code") or None,
+            )
+            messagebox.showinfo(
+                "Add Restaurant",
+                f"Restaurant '{dialog.result['business_name']}' created and verified successfully!"
+            )
+            self.refresh()
+        except Exception as exc:
+            messagebox.showerror("Add Restaurant", str(exc))
+
     def refresh(self) -> None:
         self.user_count_var.set(str(self.service.user_dao.count_users()))
         self.owner_count_var.set(str(self.service.owner_dao.count_owners()))
@@ -139,3 +227,4 @@ class AdminTab(ttk.Frame):
             for owner in owners
         ]
         self.owners_table.set_rows(owner_rows)
+

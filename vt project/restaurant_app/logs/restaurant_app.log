@@ -434,3 +434,33 @@
 [2026-08-13 19:56:51] INFO     restaurant_app — Admin set user 9 status → active
 [2026-08-13 19:58:57] INFO     restaurant_app — User registered: mroy@gmail.com (role=customer)
 [2026-08-13 19:59:03] INFO     restaurant_app — User logged in: mroy@gmail.com
+[2026-08-13 21:19:01] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-13 21:19:01] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-13 21:19:15] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-08-13 21:19:28] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 3 attempt(s) remaining.
+[2026-08-13 21:19:38] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 2 attempt(s) remaining.
+[2026-08-15 12:31:03] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-15 12:31:04] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-15 12:31:20] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 1 attempt(s) remaining.
+[2026-08-15 12:31:25] WARNING  restaurant_app.errors — [login] user=? — AccountLockedError: Too many failed attempts. Account locked for 30 minutes.
+[2026-08-15 12:33:12] INFO     restaurant_app — User registered: msroy@gmail.com (role=customer)
+[2026-08-15 12:33:21] INFO     restaurant_app — User logged in: msroy@gmail.com
+[2026-08-15 12:56:41] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-15 12:56:41] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-15 12:56:49] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 4 attempt(s) remaining.
+[2026-08-15 12:56:57] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 3 attempt(s) remaining.
+[2026-08-15 12:57:01] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 2 attempt(s) remaining.
+[2026-08-15 12:57:36] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-15 12:57:36] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-15 13:03:47] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-15 13:03:47] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-15 13:04:03] WARNING  restaurant_app.errors — [login] user=? — AuthenticationError: Invalid email or password. 1 attempt(s) remaining.
+[2026-08-15 13:04:11] WARNING  restaurant_app.errors — [login] user=? — AccountLockedError: Too many failed attempts. Account locked for 30 minutes.
+[2026-08-15 13:04:14] WARNING  restaurant_app.errors — [login] user=? — AccountLockedError: Account is locked. Try again in 30 minute(s).
+[2026-08-17 09:41:52] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-17 09:41:53] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-17 09:44:18] INFO     restaurant_app — User registered: amber@gmail.com (role=customer)
+[2026-08-17 09:44:36] INFO     restaurant_app — User logged in: amber@gmail.com
+[2026-08-17 09:44:43] INFO     restaurant_app.db — Database initialised at: C:\Users\Manas\Downloads\vt project\vt project\restaurant_app\data\restaurant.db
+[2026-08-17 09:44:44] INFO     restaurant_app.app — Application initialised: PI-RESTRO
+[2026-08-17 09:44:57] INFO     restaurant_app — User logged in: amber@gmail.com

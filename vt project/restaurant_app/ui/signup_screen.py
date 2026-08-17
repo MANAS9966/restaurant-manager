@@ -71,7 +71,7 @@ class SignupScreen(ttk.Frame):
         for heading, body in [
             ("Customer account", "Browse restaurants, place orders, and track your history."),
             ("Owner account", "Create a storefront profile and add dishes after verification."),
-            ("Lowercase login", "ID and password are normalized to lowercase for simple sign-in."),
+            ("Case-sensitive passwords", "Email is normalized to lowercase, but passwords stay exactly as typed."),
         ]:
             self._feature_block(brand, heading, body)
 
@@ -251,8 +251,8 @@ class SignupScreen(ttk.Frame):
         payload = {
             "full_name": self.full_name_var.get().strip(),
             "email": self.email_var.get().strip().lower(),
-            "password": self.password_var.get().strip().lower(),
-            "confirm_password": self.confirm_password_var.get().strip().lower(),
+            "password": self.password_var.get().strip(),
+            "confirm_password": self.confirm_password_var.get().strip(),
             "role": self.role_var.get().strip().lower(),
             "phone": self.phone_var.get().strip() or None,
             "address": self.address_var.get().strip() or None,

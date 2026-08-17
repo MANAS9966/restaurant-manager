@@ -191,6 +191,7 @@ CREATE TABLE IF NOT EXISTS table_bookings (
     booking_date        VARCHAR(10) NOT NULL,
     booking_time        VARCHAR(5) NOT NULL,
     number_of_guests    INTEGER NOT NULL CHECK(number_of_guests > 0),
+    dining_area         VARCHAR(100) DEFAULT 'Main Dining Area',
     status              TEXT NOT NULL DEFAULT 'pending'
                             CHECK(status IN ('pending','confirmed','cancelled','completed')),
     special_requests    TEXT,
@@ -211,6 +212,11 @@ def create_schema(db: Database):
     conn = db.get_connection()
     try:
         conn.executescript(SCHEMA_SQL)
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA table_info(table_bookings)")
+        cols = [col[1] for col in cursor.fetchall()]
+        if "dining_area" not in cols:
+            conn.execute("ALTER TABLE table_bookings ADD COLUMN dining_area VARCHAR(100) DEFAULT 'Main Dining Area'")
         conn.commit()
         print("[Schema] All tables and indexes created/verified.")
     finally:

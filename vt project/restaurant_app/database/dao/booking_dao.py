@@ -6,16 +6,17 @@ class BookingDAO(BaseDAO):
 
     def create_booking(self, booking_number: str, customer_id: int, owner_id: int,
                        booking_date: str, booking_time: str, number_of_guests: int,
+                       dining_area: str = "Main Dining Area",
                        special_requests: str = None) -> dict:
         sql = """
             INSERT INTO table_bookings
             (booking_number, customer_id, owner_id, booking_date, booking_time,
-             number_of_guests, special_requests)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+             number_of_guests, dining_area, special_requests)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
         bid = self._insert(sql, (
             booking_number, customer_id, owner_id, booking_date, booking_time,
-            number_of_guests, special_requests
+            number_of_guests, dining_area or "Main Dining Area", special_requests
         ))
         return self.get_booking_by_id(bid)
 

@@ -205,7 +205,7 @@ class RestaurantMainWindow:
 
         role = self.current_user["role"]
         if role == "admin":
-            self.admin_tab = AdminTab(self.notebook, self.app.service)
+            self.admin_tab = AdminTab(self.notebook, self.app.service, self.current_user)
             self.notebook.add(self.admin_tab, text="Admin")
         elif role == "owner":
             self.owner_tab = OwnerTab(self.notebook, self.app.service, self.current_user)

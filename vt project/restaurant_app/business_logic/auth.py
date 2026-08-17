@@ -15,8 +15,7 @@ except ImportError:
 # ------------------------------------------------------------------------------------------
 
 def hash_password(plain: str) -> str:
-    
-    plain = plain.strip().lower()
+    plain = plain.strip()
     if _USE_BCRYPT:
         return bcrypt.hashpw(plain.encode(), bcrypt.gensalt()).decode()
     # Fallback: sha256 with random salt prefix
@@ -26,8 +25,7 @@ def hash_password(plain: str) -> str:
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-
-    plain = plain.strip().lower()
+    plain = plain.strip()
     if _USE_BCRYPT and not hashed.startswith("sha256$"):
         try:
             return bcrypt.checkpw(plain.encode(), hashed.encode())

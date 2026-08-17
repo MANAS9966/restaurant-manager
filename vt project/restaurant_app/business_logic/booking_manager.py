@@ -23,6 +23,7 @@ class BookingManager:
 
     def create_booking(self, customer_id: int, owner_id: int, booking_date: str,
                        booking_time: str, number_of_guests: int,
+                       dining_area: str = "Main Dining Area",
                        special_requests: str = None) -> dict:
         # Validation
         if not booking_date or not re.match(r"^\d{4}-\d{2}-\d{2}$", booking_date):
@@ -54,6 +55,8 @@ class BookingManager:
             except ValueError:
                 raise ValidationError("Number of guests must be at least 1.")
 
+        dining_area = (dining_area or "Main Dining Area").strip()
+
         # Check if restaurant exists
         owner = self._owners.get_owner_by_id(owner_id)
         if not owner:
@@ -68,6 +71,7 @@ class BookingManager:
             booking_date=booking_date,
             booking_time=booking_time,
             number_of_guests=number_of_guests,
+            dining_area=dining_area,
             special_requests=special_requests
         )
 
@@ -76,7 +80,7 @@ class BookingManager:
             operation="BOOKING_CREATED",
             resource_type="booking",
             resource_id=booking["id"],
-            new_value=f"Booking for {number_of_guests} guests on {booking_date} at {booking_time}"
+            new_value=f"Booking for {number_of_guests} guests on {booking_date} at {booking_time} ({dining_area})"
         )
 
         return booking

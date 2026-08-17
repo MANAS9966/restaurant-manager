@@ -83,7 +83,7 @@ class CustomerTab(ttk.Frame):
         self.bookings_table = SearchableTable(
             bookings_tab,
             title="My Bookings",
-            columns=["Booking ID", "Booking #", "Restaurant", "Date", "Time", "Guests", "Status"],
+            columns=["Booking ID", "Booking #", "Restaurant", "Dining Area", "Date", "Time", "Guests", "Status"],
             subtitle="Track your dining table bookings.",
             search_hint="Search bookings",
         )
@@ -348,6 +348,7 @@ class CustomerTab(ttk.Frame):
                 b["id"],
                 b["booking_number"],
                 b.get("business_name", ""),
+                b.get("dining_area", "Main Dining Area"),
                 b["booking_date"],
                 b["booking_time"],
                 b["number_of_guests"],
@@ -387,11 +388,20 @@ class CustomerTab(ttk.Frame):
             return
 
         today_str = datetime.today().strftime("%Y-%m-%d")
+        dining_areas = (
+            "Main Dining Hall",
+            "Indoor Section",
+            "Outdoor Terrace",
+            "VIP Lounge / Private Room",
+            "Rooftop Garden",
+            "Window Side",
+        )
 
         dialog = FormDialog(
             self,
             "Book Dining Table",
             [
+                {"name": "dining_area", "label": "Dining Area", "kind": "combo", "choices": dining_areas, "default": dining_areas[0], "required": True},
                 {"name": "booking_date", "label": "Booking Date (YYYY-MM-DD)", "default": today_str, "required": True},
                 {"name": "booking_time", "label": "Booking Time (HH:MM, 24-hr)", "default": "19:00", "required": True},
                 {"name": "number_of_guests", "label": "Number of Guests", "default": "2", "required": True},
@@ -414,6 +424,7 @@ class CustomerTab(ttk.Frame):
                 booking_date=dialog.result["booking_date"],
                 booking_time=dialog.result["booking_time"],
                 number_of_guests=guests,
+                dining_area=dialog.result.get("dining_area") or "Main Dining Hall",
                 special_requests=dialog.result.get("special_requests") or None,
             )
             messagebox.showinfo(
@@ -431,7 +442,7 @@ class CustomerTab(ttk.Frame):
             return
 
         booking_id = int(row[0])
-        status = row[6]
+        status = row[7]
 
         if status not in ("pending", "confirmed"):
             messagebox.showinfo("Cancel Booking", f"Cannot cancel a booking in '{status}' status.")

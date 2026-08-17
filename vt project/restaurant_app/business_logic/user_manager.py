@@ -59,7 +59,7 @@ class UserManager:
                  address: str = None) -> dict:
         """Register a new user. Returns the created user dict."""
         email = email.strip().lower()
-        password = password.strip().lower()
+        password = password.strip()
         self._validate_email(email)
         self._validate_password(password)
         if not full_name or not full_name.strip():
@@ -83,7 +83,6 @@ class UserManager:
         """Validate credentials. Returns user dict on success."""
         email = email.strip().lower()
         password_raw = password.strip()
-        password = password_raw.lower()
         user = self._users.get_user_by_email(email)
         if not user:
             raise AuthenticationError("Invalid email or password.")
@@ -108,8 +107,7 @@ class UserManager:
         if user["status"] == "locked" and not user["locked_until"]:
             raise AccountLockedError("Account is locked. Contact an administrator.")
 
-        if not (verify_password(password, user["password_hash"]) or
-                verify_password(password_raw, user["password_hash"])):
+        if not verify_password(password_raw, user["password_hash"]):
             attempts = (user["failed_login_attempts"] or 0) + 1
             locked_until = None
             if attempts >= self.MAX_ATTEMPTS:

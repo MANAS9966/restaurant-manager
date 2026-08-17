@@ -75,7 +75,7 @@ class LoginScreen(ttk.Frame):
 
         tk.Label(
             brand,
-            text="Tip: the default demo admin login is kept in lowercase for consistency.",
+            text="Tip: passwords are case-sensitive. Email is normalized to lowercase.",
             bg=COLORS.hero,
             fg="#dbeafe",
             font=("Segoe UI", 9),
@@ -186,7 +186,7 @@ class LoginScreen(ttk.Frame):
 
     def _submit(self) -> None:
         email = self.email_var.get().strip().lower()
-        password = self.password_var.get().strip().lower()
+        password = self.password_var.get().strip()
         if self.remember_var.get():
             save_preferences({"remembered_email": email})
         else:
