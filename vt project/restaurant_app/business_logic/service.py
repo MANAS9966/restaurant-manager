@@ -131,6 +131,9 @@ class RestaurantService:
                      rejection_reason: str = None) -> dict:
         return self.owners.verify_owner(actor_role, actor_user_id, owner_id, approved, rejection_reason)
 
+    def get_verified_owners(self, limit: int = 100, offset: int = 0, search: str = None) -> list[dict]:
+        return self.owners.get_verified_owners(limit=limit, offset=offset, search=search)
+
     def add_restaurant_owner(self, actor_role: str, actor_user_id: int,
                              full_name: str, email: str, password: str,
                              business_name: str, license_number: str,

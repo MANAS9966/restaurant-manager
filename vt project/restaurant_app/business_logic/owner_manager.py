@@ -74,6 +74,16 @@ class OwnerManager:
             raise AuthorizationError("Only admins can list all owners.")
         return self._owners.get_all_owners(filters, limit, offset, search)
 
+    def get_verified_owners(self, limit: int = 100, offset: int = 0,
+                             search: str = None) -> list[dict]:
+        """Public catalog of verified restaurant owners for customer browsing."""
+        return self._owners.get_all_owners(
+            filters={"verification_status": "verified"},
+            limit=limit,
+            offset=offset,
+            search=search,
+        )
+
     def get_analytics(self, actor_role: str, actor_user_id: int,
                       owner_id: int) -> dict:
         owner = self.get_owner(owner_id)

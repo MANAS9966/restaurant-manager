@@ -297,7 +297,7 @@ class CustomerTab(ttk.Frame):
 
     def refresh(self) -> None:
         try:
-            owners = self.service.owners.get_all_owners("admin", limit=100)
+            owners = self.service.get_verified_owners(limit=100)
         except Exception:
             owners = []
         restaurant_rows = [
@@ -309,7 +309,7 @@ class CustomerTab(ttk.Frame):
                 owner.get("rating", 0),
             )
             for owner in owners
-            if owner.get("verification_status") in ("verified", "pending")
+            if owner.get("verification_status") == "verified"
         ]
         self.restaurants_table.set_rows(restaurant_rows)
 

@@ -45,7 +45,7 @@ class DishDAO(BaseDAO):
     def get_all_dishes(self, filters: dict = None, limit: int = 100,
                        offset: int = 0, search: str = None) -> list[dict]:
         """Returns dishes for customer browsing — includes owner business name."""
-        conditions = ["d.status = 'active'"]
+        conditions = ["d.status = 'active'", "ro.verification_status = 'verified'"]
         params = []
         if filters:
             for k, v in filters.items():
@@ -70,7 +70,7 @@ class DishDAO(BaseDAO):
                       min_price: float = None, max_price: float = None,
                       owner_id: int = None, limit: int = 50,
                       offset: int = 0) -> list[dict]:
-        conditions = ["d.status = 'active'"]
+        conditions = ["d.status = 'active'", "ro.verification_status = 'verified'"]
         params = []
         if query:
             conditions.append("(d.name LIKE ? OR d.description LIKE ?)")

@@ -57,10 +57,12 @@ class BookingManager:
 
         dining_area = (dining_area or "Main Dining Area").strip()
 
-        # Check if restaurant exists
+        # Check if restaurant exists and is verified
         owner = self._owners.get_owner_by_id(owner_id)
         if not owner:
             raise NotFoundError(f"Restaurant owner {owner_id} not found.")
+        if owner.get("verification_status") != "verified":
+            raise ValidationError("Cannot book a table at an unverified restaurant.")
 
         booking_number = self._gen_booking_number()
 
